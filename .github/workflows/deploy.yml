@@ -22,9 +22,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: echo var vals
-    #   run: echo "ARM_CLIENT_ID : $ARM_CLIENT_ID"
-
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -40,7 +37,7 @@ jobs:
       run: terraform validate
 
     - name: Plan Terraform
-      run: terraform plan
+      run: terraform plan -out .planfile
 
     - name: Apply Terraform
       if: github.ref == 'refs/heads/main'
