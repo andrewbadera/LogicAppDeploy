@@ -36,6 +36,7 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   depends_on = [
     azurerm_resource_group.rg,
   ]
+  }
 }
 
 resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedocumentv3" {
