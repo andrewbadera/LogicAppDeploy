@@ -58,17 +58,12 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   workflow_parameters = {
     "$connections" = "{\"defaultValue\":{},\"type\":\"Object\"}"
   }
-  access_control {
-    trigger {
-      allowed_caller_ip_address_range = []
-  }
   identity {
     type = "SystemAssigned"
   }
   depends_on = [
     azurerm_resource_group.rg,
   ]
-  }
 }
 
 resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedocumentv3" {
