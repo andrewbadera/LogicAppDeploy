@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: echo var vals
-      run: echo "secrets.CLIENT_ID : $ARM_CLIENT_ID"
+    # - name: echo var vals
+    #   run: echo "ARM_CLIENT_ID : $ARM_CLIENT_ID"
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -32,6 +32,12 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.0.0
+
+    - name: Setup Azure CLI
+      uses: azure/cli@v1
+
+    - name: Login to Azure
+      run: az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
 
     - name: Initialize Terraform
       run: terraform init
