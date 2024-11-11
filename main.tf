@@ -2,13 +2,17 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = ">= 4.9.0"
     }
   }
 }
 
 provider "azurerm" {
     features {}
+}
+
+variable "RG_NAME" {
+  type = string
 }
 
 resource "azurerm_resource_group" "rg" {
