@@ -1,4 +1,4 @@
-name: Deploy with Terraform
+name: Deploy Logic App with Terraform
 
 env:
   ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -22,8 +22,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    -name: echo secrets
-      run: echo secrets.CLIENT_ID : ${{secrets.CLIENT_ID}}
+    - name: echo var vals
+      run: echo "secrets.CLIENT_ID : $ARM_CLIENT_ID"
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
