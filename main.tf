@@ -1,23 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.9.0"
-    }
-  }
-
-  backend "azurerm" {
-    resource_group_name  = "rg-logicappghdeploy-eus"
-    storage_account_name = "stterraformstateeus"
-    container_name       = "tfstate"
-    key                  = "tf-example" # can be anything
-    #use_oidc             = true # To use OIDC to authenticate to the backend
-    client_id            = "9af55caa-2954-4505-b792-8b94027b1e39" # The client ID of the Managed Identity
-    subscription_id      = "bc3ba08c-ec7c-49c9-b917-29f77a23a41b" # The subscription ID where the storage account exists
-    tenant_id            = "{var.ARM_TENANT_ID}" # The tenant ID where the subscription and the Managed Identity are
-  }
-}
-
 variable "ARM_CLIENT_SECRET" {
   type = string
 }
@@ -60,6 +40,26 @@ variable "LOCATION_ABBREVIATION" {
 
 variable "ENVIRONMENT" {
   type = string
+}
+
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 4.9.0"
+    }
+  }
+
+  backend "azurerm" {
+    resource_group_name  = "rg-logicappghdeploy-eus"
+    storage_account_name = "stterraformstateeus"
+    container_name       = "tfstate"
+    key                  = "tf-example" # can be anything
+    #use_oidc             = true # To use OIDC to authenticate to the backend
+    client_id            = "9af55caa-2954-4505-b792-8b94027b1e39" # The client ID of the Managed Identity
+    subscription_id      = "bc3ba08c-ec7c-49c9-b917-29f77a23a41b" # The subscription ID where the storage account exists
+    tenant_id            = "{var.ARM_TENANT_ID}" # The tenant ID where the subscription and the Managed Identity are
+  }
 }
 
 provider "azurerm" {
