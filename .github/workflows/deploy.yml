@@ -17,6 +17,10 @@ on:
         required: true
         default: 'dev'
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   terraform:
     runs-on: ubuntu-latest

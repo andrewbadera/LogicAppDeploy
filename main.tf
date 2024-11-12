@@ -5,6 +5,22 @@ terraform {
       version = ">= 4.9.0"
     }
   }
+
+  subscription_id   = "${var.ARM_SUBSCRIPTION_ID}"
+  tenant_id         = "${var.ARM_TENANT_ID}"
+  client_id         = "${var.ARM_CLIENT_ID}"
+  client_secret     = "${var.ARM_CLIENT_SECRET}"
+
+  backend "azurerm" {
+    resource_group_name  = "rg-logicappghdeploy-eus"
+    storage_account_name = "stterraformstateeus"
+    container_name       = "tfstate"
+    key                  = "tf-example" # can be anything
+    use_oidc             = true # To use OIDC to authenticate to the backend
+    client_id            = "${var.ARM_CLIENT_ID}" # The client ID of the Managed Identity
+    subscription_id      = "${var.ARM_SUBSCRIPTION_ID}" # The subscription ID where the storage account exists
+    tenant_id            = "{var.ARM_TENANT_ID}" # The tenant ID where the subscription and the Managed Identity are
+  }
 }
 
 variable "ARM_CLIENT_SECRET" {
@@ -54,10 +70,9 @@ variable "ENVIRONMENT" {
 provider "azurerm" {
   features {}
 
-  subscription_id   = "${var.ARM_SUBSCRIPTION_ID}"
-  tenant_id         = "${var.ARM_TENANT_ID}"
-  client_id         = "${var.ARM_CLIENT_ID}"
-  client_secret     = "${var.ARM_CLIENT_SECRET}"
+  use_oidc        = true # Use OIDC to authenticate to Azure
+  subscription_id = "${var.ARM_SUBSCRIPTION_ID}"
+
 }
 
 resource "azurerm_resource_group" "rg" {
