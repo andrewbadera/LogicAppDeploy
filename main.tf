@@ -11,7 +11,7 @@ terraform {
     storage_account_name = "stterraformstateeus"
     container_name       = "tfstate"
     key                  = "tf-example" # can be anything
-    use_oidc             = true # To use OIDC to authenticate to the backend
+    #use_oidc             = true # To use OIDC to authenticate to the backend
     client_id            = "${var.ARM_CLIENT_ID}" # The client ID of the Managed Identity
     subscription_id      = "${var.ARM_SUBSCRIPTION_ID}" # The subscription ID where the storage account exists
     tenant_id            = "{var.ARM_TENANT_ID}" # The tenant ID where the subscription and the Managed Identity are
