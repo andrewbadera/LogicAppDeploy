@@ -22,6 +22,10 @@ variable "COSMOS_DB_CONTAINER" {
   type = string
 }
 
+variable "COSMOS_DB_RG_NAME" {
+  type = string
+}
+
 variable "RG_NAME" {
   type = string
 }
