@@ -1,5 +1,4 @@
 ARM_CLIENT_ID = "${{ secrets.CLIENT_ID }}"
-ARM_CLIENT_SECRET = "${{ secrets.CLIENT_SECRET }}"
 ARM_TENANT_ID = "${{ secrets.SUBSCRIPTION_ID }}"
 ARM_SUBSCRIPTION_ID = "${{ secrets.TENANT_ID }}"
 COSMOS_DB_ACCOUNT = "${{ vars.COSMOS_DB_ACCOUNT}}"
