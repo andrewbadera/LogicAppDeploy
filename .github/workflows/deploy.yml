@@ -2,10 +2,8 @@ name: Deploy Logic App with Terraform
 
 env:
   ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  ARM_OIDC_TOKEN: ""
   ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-  ARM_USE_MSI: true
   COSMOS_DB_ACCOUNT: ${{ vars.COSMOS_DB_ACCOUNT}}  
   COSMOS_DB_DATABASE: ${{ vars.COSMOS_DB_DATABASE}}
   COSMOS_DB_CONTAINER: ${{ vars.COSMOS_DB_CONTAINER}}
@@ -36,7 +34,6 @@ jobs:
         client-id: ${{ secrets.CLIENT_ID }}
         tenant-id: ${{ secrets.TENANT_ID }}
         subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-        #enable-AzPSSession: true
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -50,7 +47,7 @@ jobs:
       run: terraform validate
 
     - name: Plan Terraform
-      run: terraform plan -out=main.tfplan
+      run: terraform plan
 
     - name: Apply Terraform
       if: github.ref == 'refs/heads/main'
