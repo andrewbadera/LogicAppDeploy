@@ -42,10 +42,6 @@ variable "ENVIRONMENT" {
   type = string
 }
 
-variable "USER_ASSIGNED_CLIENT_ID" {
-  type = string
-}
-
 terraform {
   required_providers {
     azurerm = {
@@ -59,7 +55,10 @@ terraform {
     storage_account_name = "stterraformstateeus"
     container_name       = "tfstate"
     key                  = "tf-example" # can be anything
-    client_id            = "${var.USER_ASSIGNED_CLIENT_ID}" # The client ID of the user-assigned managed identity
+    #use_oidc             = true # To use OIDC to authenticate to the backend
+    #use_azuread_auth     = true
+    use_msi              = true
+    client_id            = "9af55caa-2954-4505-b792-8b94027b1e39" # The client ID of the Managed Identity
     subscription_id      = "bc3ba08c-ec7c-49c9-b917-29f77a23a41b" # The subscription ID where the storage account exists
     tenant_id            = "595eb399-d3f9-418f-a37e-8f0d0b8b00a0" # The tenant ID where the subscription and the Managed Identity are
   }
@@ -68,8 +67,8 @@ terraform {
 provider "azurerm" {
   features {}
 
-  use_msi          = true # Use Managed Service Identity to authenticate to Azure
-  client_id        = "${var.USER_ASSIGNED_CLIENT_ID}" # The client ID of the user-assigned managed identity
+  use_msi          = true
+  #use_oidc         = true # Use OIDC to authenticate to Azure
   subscription_id  = "${var.ARM_SUBSCRIPTION_ID}"
 }
 
