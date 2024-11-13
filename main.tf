@@ -55,7 +55,7 @@ terraform {
     storage_account_name = "stterraformstateeus"
     container_name       = "tfstate"
     key                  = "tf-example" # can be anything
-    use_oidc             = true # To use OIDC to authenticate to the backend
+    #use_oidc             = true # To use OIDC to authenticate to the backend
     #use_azuread_auth     = true
     #use_msi              = true
     client_id            = "9af55caa-2954-4505-b792-8b94027b1e39" # The client ID of the Managed Identity
