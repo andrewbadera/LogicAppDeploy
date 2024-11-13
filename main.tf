@@ -128,12 +128,12 @@ resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_reques
   ]
 }
 
-resource "azurerm_api_connection" "logic_app_api_connection" {
-  managed_api_id      = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb"
-  name                = "documentdb"
-  resource_group_name = "${var.RG_NAME}"
+# resource "azurerm_api_connection" "logic_app_api_connection" {
+#   managed_api_id      = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb"
+#   name                = "documentdb"
+#   resource_group_name = "${var.RG_NAME}"
 
-  depends_on = [
-    azurerm_resource_group.rg,
-  ]
-}
+#   depends_on = [
+#     azurerm_resource_group.rg,
+#   ]
+# }
