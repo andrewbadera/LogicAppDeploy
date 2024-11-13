@@ -4,9 +4,13 @@ env:
   ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-  COSMOS_DB_ACCOUNT: ${{ vars.COSMOS_DB_ACCOUNT}}  
-  COSMOS_DB_DATABASE: ${{ vars.COSMOS_DB_DATABASE}}
-  COSMOS_DB_CONTAINER: ${{ vars.COSMOS_DB_CONTAINER}}
+  COSMOS_DB_ACCOUNT: ${{ vars.COSMOS_DB_ACCOUNT }}  
+  COSMOS_DB_DATABASE: ${{ vars.COSMOS_DB_DATABASE }}
+  COSMOS_DB_CONTAINER: ${{ vars.COSMOS_DB_CONTAINER }}
+  RG_NAME: ${{ vars.RG_NAME }}
+  RG_LOCATION: ${{ vars.RG_LOCATION }}
+  LOCATION_ABBREVIATION: ${{ vars.RG_LOCATION }}
+  ENVIRONMENT: ${{ github.env }}
 
 on:
   workflow_dispatch:
@@ -47,8 +51,8 @@ jobs:
       run: terraform validate
 
     - name: Plan Terraform
-      run: terraform plan -no-color -input=false -var-file=terraform.tfvars
+      run: terraform plan -no-color -input=false
 
     - name: Apply Terraform
       if: github.ref == 'refs/heads/main'
-      run: terraform apply -var-file=terraform.tfvars -auto-approve
+      run: terraform apply -auto-approve
