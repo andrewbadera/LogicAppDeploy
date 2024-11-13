@@ -1,16 +1,16 @@
 name: Deploy Logic App with Terraform
 
 env:
-  ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-  COSMOS_DB_ACCOUNT: ${{ vars.COSMOS_DB_ACCOUNT }}  
-  COSMOS_DB_DATABASE: ${{ vars.COSMOS_DB_DATABASE }}
-  COSMOS_DB_CONTAINER: ${{ vars.COSMOS_DB_CONTAINER }}
-  RG_NAME: ${{ vars.RG_NAME }}
-  RG_LOCATION: ${{ vars.RG_LOCATION }}
-  LOCATION_ABBREVIATION: ${{ vars.RG_LOCATION }}
-  ENVIRONMENT: ${{ github.env }}
+  TF_VAR_ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+  TF_VAR_ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+  TF_VAR_COSMOS_DB_ACCOUNT: ${{ vars.COSMOS_DB_ACCOUNT }}  
+  TF_VAR_COSMOS_DB_DATABASE: ${{ vars.COSMOS_DB_DATABASE }}
+  TF_VAR_COSMOS_DB_CONTAINER: ${{ vars.COSMOS_DB_CONTAINER }}
+  TF_VAR_RG_NAME: ${{ vars.RG_NAME }}
+  TF_VAR_RG_LOCATION: ${{ vars.RG_LOCATION }}
+  TF_VAR_LOCATION_ABBREVIATION: ${{ vars.RG_LOCATION }}
+  TF_VAR_ENVIRONMENT: ${{ github.env }}
 
 on:
   workflow_dispatch:
