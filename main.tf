@@ -137,10 +137,6 @@ resource "azurerm_api_connection" "logic_app_api_connection" {
     type = "SystemAssigned"
   }
 
-  authentication {
-    type = "ManagedServiceIdentity"
-  }
-
   depends_on = [
     azurerm_resource_group.rg,
   ]
