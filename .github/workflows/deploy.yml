@@ -47,7 +47,7 @@ jobs:
       run: terraform validate
 
     - name: Plan Terraform
-      run: terraform plan -no-color -input=false
+      run: terraform plan -no-color -input=false --var-file main.tfvars
 
     - name: Apply Terraform
       if: github.ref == 'refs/heads/main'
