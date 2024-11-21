@@ -26,7 +26,7 @@ variable "COSMOS_DB_RG_NAME" {
   type = string
 }
 
-variable "LA_NAME" {
+variable "LOGIC_APP_NAME" {
   type = string
 }
 
