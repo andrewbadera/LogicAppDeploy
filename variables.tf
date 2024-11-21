@@ -26,6 +26,10 @@ variable "COSMOS_DB_RG_NAME" {
   type = string
 }
 
+variable "LA_NAME" {
+  type = string
+}
+
 variable "RG_NAME" {
   type = string
 }
