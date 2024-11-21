@@ -11,7 +11,7 @@ env:
   TF_VAR_RG_LOCATION: ${{ vars.RG_LOCATION }}
   TF_VAR_LOCATION_ABBREVIATION: ${{ vars.LOCATION_ABBREVIATION }}
   TF_VAR_RG_NAME: ${{ vars.RG_NAME }}
-  TF_VAR_ENVIRONMENT: ${{ inputs.ENVIRONMENT_NAME }}
+  TF_VAR_ENVIRONMENT: ${{ vars.ENVIRONMENT_NAME }}
 
 on:
   workflow_dispatch:
