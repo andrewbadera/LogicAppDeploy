@@ -1,5 +1,5 @@
 locals {
-  la_name = format("%s/%s", ${var.LA_NAME}, "${var.ENVIRONMENT}")
+  la_name = format("%s/%s", "${var.LA_NAME}", "${var.ENVIRONMENT}")
 }
 
 terraform {
