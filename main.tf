@@ -1,3 +1,7 @@
+locals {
+  la_name = format("%s/%s", ${var.LA_NAME}, "${var.ENVIRONMENT}")
+}
+
 terraform {
   required_version = "= 1.9.8"
 
@@ -34,7 +38,7 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   location = "${var.RG_LOCATION}"
-  name     = format("%s/%s", ${var.LA_NAME}, "${var.ENVIRONMENT}")
+  name     = "${locals.la_name}"
   parameters = {
     "$connections" = "{\"documentdb\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"connectionProperties\":{\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
   }
@@ -62,7 +66,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
     runAfter = {}
     type     = "ApiConnection"
   })
-  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", (format("%s/%s", ${var.LA_NAME}, "${var.ENVIRONMENT}")))
+  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", "${locals.la_name}")
   name         = "Create_or_update_document_(V3)"
   depends_on = [
     azurerm_logic_app_workflow.logic_app_workflow,
@@ -71,7 +75,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
 }
 
 resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_request" {
-  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", (format("%s/%s", ${var.LA_NAME}, "${var.ENVIRONMENT}")))
+  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", "${locals.la_name}")
   method       = "POST"
   name         = "When_a_HTTP_request_is_received"
   schema = jsonencode({
