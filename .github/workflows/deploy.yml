@@ -1,7 +1,7 @@
 name: Deploy Logic App with Terraform
 
 env:
-  TF_LOG: TRACE
+  TF_LOG: DEBUG
   TF_VAR_ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
   TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
   TF_VAR_ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
