@@ -1,5 +1,5 @@
 locals {
-  la_name = format("%s/%s", "${var.LOGIC_APP_NAME}", "${var.ENVIRONMENT}")
+  la_name = format("%s%s", "${var.LOGIC_APP_NAME}", "${var.ENVIRONMENT}")
 }
 
 terraform {
@@ -66,7 +66,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
     runAfter = {}
     type     = "ApiConnection"
   })
-  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", local.la_name)
+  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", local.la_name)
   name         = "Create_or_update_document_(V3)"
   depends_on = [
     azurerm_logic_app_workflow.logic_app_workflow,
@@ -75,7 +75,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
 }
 
 resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_request" {
-  logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", local.la_name)
+  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Logic/workflows/", local.la_name)
   method       = "POST"
   name         = "When_a_HTTP_request_is_received"
   schema = jsonencode({
