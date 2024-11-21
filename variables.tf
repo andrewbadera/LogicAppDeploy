@@ -34,10 +34,6 @@ variable "RG_LOCATION" {
   type = string
 }
 
-variable "LOCATION_ABBREVIATION" {
-  type = string
-}
-
 variable "ENVIRONMENT" {
   type = string
 }
