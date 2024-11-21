@@ -136,6 +136,6 @@ resource "azurerm_api_connection" "logic_app_api_connection" {
   ]
 }
 
-output "debug logic_app_id" {
+output "debug_logic_app_id" {
   value = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"connectionProperties\":{\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/providers/Microsoft.Logic/workflows/", azurerm_logic_app_workflow.logic_app_workflow.name)
 }
