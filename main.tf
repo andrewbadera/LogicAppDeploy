@@ -140,6 +140,6 @@ resource "azurerm_api_connection" "logic_app_api_connection" {
   ]
 }
 
-# output "debug_logic_app_id" {
-#   value = logic_app_id = format("%s/%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Logic/locations/${var.RG_LOCATION}/providers/Microsoft.Logic/workflows/", azurerm_logic_app_workflow.logic_app_workflow.name)
-# }
+output "debug_logic_app_name" {
+  value = local.la_name
+}
