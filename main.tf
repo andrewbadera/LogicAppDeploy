@@ -40,7 +40,7 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   location = "${var.RG_LOCATION}"
   name     = local.la_name
     parameters = {
-    "$connections" = "{\"documentdb-1\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb-1\",\"connectionName\":\"documentdb-1\",\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
+    "$connections" = "{\"documentdb\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb-1\",\"connectionName\":\"documentdb-1\",\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
   }
   resource_group_name = "${var.RG_NAME}"
   workflow_parameters = {
