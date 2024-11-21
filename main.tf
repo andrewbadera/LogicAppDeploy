@@ -42,9 +42,6 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   workflow_parameters = {
     "$connections" = "{\"defaultValue\":{},\"type\":\"Object\"}"
   }
-  identity {
-    type = "SystemAssigned"
-  }
   depends_on = [
     azurerm_resource_group.rg,
   ]
@@ -69,6 +66,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
   name         = "Create_or_update_document_(V3)"
   depends_on = [
     azurerm_logic_app_workflow.logic_app_workflow,
+    azurerm_api_connection.logic_app_api_connection,
   ]
 }
 
@@ -124,7 +122,7 @@ resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_reques
     type = "object"
   })
   depends_on = [
-    azurerm_logic_app_workflow.logic_app_workflow,
+    azurerm_logic_app_workflow.logic_app_workflow,    
   ]
 }
 
