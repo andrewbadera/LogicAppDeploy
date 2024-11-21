@@ -34,7 +34,7 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   location = "${var.RG_LOCATION}"
-  name     = "la-ghdeploy-${var.LOCATION_ABBREVIATION}-${var.ENVIRONMENT}"
+  name     = "${var.RG_NAME}"
   parameters = {
     "$connections" = "{\"documentdb\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"connectionProperties\":{\"authentication\":{\"type\":\"ManagedServiceIdentity\"}},\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
   }
