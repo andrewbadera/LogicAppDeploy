@@ -71,7 +71,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
 }
 
 resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_request" {
-  logic_app_id = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"connectionProperties\":{\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/providers/Microsoft.Logic/workflows/${var.RG_NAME}"
+  logic_app_id = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"connectionProperties\":{\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/providers/Microsoft.Logic/workflows/"  + azurerm_logic_app_workflow.logic_app_workflow.name
   method       = "POST"
   name         = "When_a_HTTP_request_is_received"
   schema = jsonencode({
