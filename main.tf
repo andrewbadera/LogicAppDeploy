@@ -32,7 +32,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-    name     = "${var.RG_NAME}"
+    name     = "${var.RG_NAME}${var.ENVIRONMENT}"
     location = "${var.RG_LOCATION}"
 }
 
