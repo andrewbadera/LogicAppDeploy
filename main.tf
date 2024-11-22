@@ -49,6 +49,7 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   }
   depends_on = [
     azurerm_resource_group.rg,
+    azurerm_api_connection.logic_app_api_connection,
   ]
 }
 
