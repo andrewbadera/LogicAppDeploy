@@ -1,5 +1,6 @@
 locals {
   la_name = format("%s%s", "${var.LOGIC_APP_NAME}", "${var.ENVIRONMENT}")
+  rg_name = format("%s%s", "${var.RG_NAME}", "${var.ENVIRONMENT}")
 }
 
 terraform {
@@ -32,7 +33,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-    name     = "${var.RG_NAME}${var.ENVIRONMENT}"
+    name     = local.rg_name
     location = "${var.RG_LOCATION}"
 }
 
@@ -40,9 +41,9 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   location = "${var.RG_LOCATION}"
   name     = local.la_name
     parameters = {
-    "$connections" = "{\"documentdb\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}${var.ENVIRONMENT}/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
+    "$connections" = "{\"documentdb\":{\"connectionId\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/local.rg_name/providers/Microsoft.Web/connections/documentdb\",\"connectionName\":\"documentdb\",\"id\":\"/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb\"}}"
   }
-  resource_group_name = "${var.RG_NAME}${var.ENVIRONMENT}"
+  resource_group_name = local.rg_name
   workflow_parameters = {
     "$connections" = "{\"defaultValue\":{},\"type\":\"Object\"}"
   }
@@ -66,7 +67,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
     runAfter = {}
     type     = "ApiConnection"
   })
-  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}${var.ENVIRONMENT}/providers/Microsoft.Logic/workflows/", local.la_name)
+  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/local.rg_name/providers/Microsoft.Logic/workflows/", local.la_name)
   name         = "Create_or_update_document_(V3)"
   depends_on = [
     azurerm_logic_app_workflow.logic_app_workflow,
@@ -75,7 +76,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
 }
 
 resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_request" {
-  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${var.RG_NAME}${var.ENVIRONMENT}/providers/Microsoft.Logic/workflows/", local.la_name)
+  logic_app_id = format("%s%s", "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/local.rg_name/providers/Microsoft.Logic/workflows/", local.la_name)
   method       = "POST"
   name         = "When_a_HTTP_request_is_received"
   schema = jsonencode({
@@ -133,7 +134,7 @@ resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_reques
 resource "azurerm_api_connection" "logic_app_api_connection" {
   managed_api_id      = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb"
   name                = "documentdb"
-  resource_group_name = "${var.RG_NAME}${var.ENVIRONMENT}"
+  resource_group_name = local.rg_name
 
   depends_on = [
     azurerm_resource_group.rg,
