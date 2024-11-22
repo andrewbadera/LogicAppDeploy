@@ -37,6 +37,16 @@ resource "azurerm_resource_group" "rg" {
     location = "${var.RG_LOCATION}"
 }
 
+resource "azurerm_api_connection" "logic_app_api_connection" {
+  managed_api_id      = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb"
+  name                = "documentdb"
+  resource_group_name = local.rg_name
+
+  depends_on = [
+    azurerm_resource_group.rg,
+  ]
+}
+
 resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   location = "${var.RG_LOCATION}"
   name     = local.la_name
@@ -72,7 +82,6 @@ resource "azurerm_logic_app_action_custom" "logic_app_cosmosdb_createorupdatedoc
   name         = "Create_or_update_document_(V3)"
   depends_on = [
     azurerm_logic_app_workflow.logic_app_workflow,
-    azurerm_api_connection.logic_app_api_connection,
   ]
 }
 
@@ -132,16 +141,10 @@ resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_reques
   ]
 }
 
-resource "azurerm_api_connection" "logic_app_api_connection" {
-  managed_api_id      = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/${var.RG_LOCATION}/managedApis/documentdb"
-  name                = "documentdb"
-  resource_group_name = local.rg_name
-
-  depends_on = [
-    azurerm_resource_group.rg,
-  ]
-}
-
 output "debug_logic_app_name" {
   value = local.la_name
+}
+
+output "debug_rg_name" {
+  value = local.rg_name
 }
